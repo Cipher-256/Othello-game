@@ -1,7 +1,3 @@
-""" Othello game GUI
-    Humberto Henrique Campos Pinheiro
-"""
-
 import pygame
 import sys
 from pygame.locals import *
@@ -18,8 +14,8 @@ class Gui:
 
         # colors
         self.BLACK = (0, 0, 0)
-        self.BACKGROUND = (0, 0, 128)
-        self.WHITE = (255, 255, 255)
+        self.BACKGROUND = (92,162,242)
+        self.WHITE = (0,0,0)
         self.BLUE = (0, 0, 255)
         self.YELLOW = (128, 128, 0)
 
@@ -60,8 +56,8 @@ class Gui:
         while True:
             self.screen.fill(self.BACKGROUND)
 
-            title_fnt = pygame.font.SysFont("Times New Roman", 34)
-            title = title_fnt.render("Othello", True, self.WHITE)
+            title_fnt = pygame.font.SysFont("Times New Roman", 50)
+            title = title_fnt.render("OTHELLO", True, self.WHITE)  
             title_pos = title.get_rect(
                 centerx=self.screen.get_width() / 2, centery=60)
 
@@ -84,7 +80,7 @@ class Gui:
             self.screen.blit(start_txt, start_pos)
             self.screen.blit(player1_txt, player1_pos)
             self.screen.blit(player2_txt, player2_pos)
-            self.screen.blit(level_txt, level_pos)
+            # self.screen.blit(level_txt, level_pos)
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -210,6 +206,7 @@ class Gui:
         pygame.display.flip()
 
     def put_stone(self, pos, color):
+        pygame.time.wait(50)
         """ draws piece with given position and color """
         if pos == None:
             return
