@@ -1,7 +1,6 @@
 from config import WHITE, BLACK, EMPTY
 from copy import deepcopy
 
-
 class Board:
 
     """ Rules of the game """
@@ -15,6 +14,7 @@ class Board:
                       [0, 0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0, 0]]
+        self.vm={}
         self.board[3][4] = BLACK
         self.board[4][3] = BLACK
         self.board[3][3] = WHITE
@@ -151,16 +151,28 @@ class Board:
                     places = places + self.lookup(i, j, color)
 
         places = list(set(places))
+        # B edit : 
+        #count=0
+        '''       for i in places:
+                    count=0
+                    for j in range(1,9):
+                        if flip(j,i,color)!=0:
+                            count+=1
+                    vm[i]=count'''
         self.valid_moves = places
         return places
 
     def apply_move(self, move, color):
         """ Determine if the move is correct and apply the changes in the game.
         """
+        c=0
         if move in self.valid_moves:
+            print("c",move[0],move[1])
             self.board[move[0]][move[1]] = color
             for i in range(1, 9):
-                self.flip(i, move, color)
+                c+=self.flip(i, move, color)
+        print("rew",c)
+        return c
 
     def flip(self, direction, position, color):
         """ Flips (capturates) the pieces of the given color in the given direction
@@ -207,12 +219,13 @@ class Board:
             other = BLACK
         else:
             other = WHITE
-
+        count=0
         if i in range(8) and j in range(8) and self.board[i][j] == other:
             # assures there is at least one piece to flip
             places = places + [(i, j)]
             i = i + row_inc
             j = j + col_inc
+            
             while i in range(8) and j in range(8) and self.board[i][j] == other:
                 # search for more pieces to flip
                 places = places + [(i, j)]
@@ -222,7 +235,11 @@ class Board:
                 # found a piece of the right color to flip the pieces between
                 for pos in places:
                     # flips
+                    count+=1
                     self.board[pos[0]][pos[1]] = color
+        #print(count,"   '",color," ",other)
+        return count
+    #self.vm[position]=len(places)0
 
     def get_changes(self):
         """ Return black and white counters. """
