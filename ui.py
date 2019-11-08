@@ -118,8 +118,8 @@ class Gui:
         """
         while True:
             self.screen.fill(self.BACKGROUND)
-            title_fnt = pygame.font.SysFont("Times New Roman", 34)
-            title = title_fnt.render("Othello", True, Color(0, 0, 255))
+            title_fnt = pygame.font.SysFont("Times New Roman", 50)
+            title = title_fnt.render("OTHELLO", True, Color(0, 0, 0))
             title_pos = title.get_rect(
                 centerx=self.screen.get_width() / 2, centery=60)
             human_txt = self.font.render("Human", True, self.WHITE)
